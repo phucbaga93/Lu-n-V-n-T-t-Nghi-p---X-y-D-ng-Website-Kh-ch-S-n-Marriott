@@ -1,0 +1,9 @@
+{
+  "/login/page": "app/login/page.js",
+  "/customer/rooms/page": "app/customer/rooms/page.js",
+  "/page": "app/page.js",
+  "/staff/dashboard/page": "app/staff/dashboard/page.js",
+  "/staff/bookings/page": "app/staff/bookings/page.js",
+  "/customer/cart/page": "app/customer/cart/page.js",
+  "/staff/checkin/page": "app/staff/checkin/page.js"
+}

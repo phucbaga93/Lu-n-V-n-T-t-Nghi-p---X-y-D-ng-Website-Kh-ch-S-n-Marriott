@@ -1,0 +1,1528 @@
+{
+	"info": {
+		"_postman_id": "fb21888a-fa9c-4c6e-9533-bd1ffcb60c6f",
+		"name": "Marriott Hotel Backend APIs",
+		"description": "Collection test toàn bộ các API của hệ thống quản lý khách sạn Marriott Hotel (Khóa luận tốt nghiệp). Phân chia rõ ràng mục GET riêng và POST/PUT/DELETE riêng.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. GET Requests (Lấy dữ liệu)",
+			"item": [
+				{
+					"name": "Kiểm tra trạng thái hệ thống (Health Check)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"health"
+							]
+						},
+						"description": "Kiểm tra kết nối Database và trạng thái hoạt động của Laravel Backend."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách tất cả các phòng",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/rooms?check_in=2026-06-25&check_out=2026-06-26",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"rooms"
+							],
+							"query": [
+								{
+									"key": "check_in",
+									"value": "2026-06-25",
+									"description": "Ngày nhận phòng muốn tìm"
+								},
+								{
+									"key": "check_out",
+									"value": "2026-06-26",
+									"description": "Ngày trả phòng muốn tìm"
+								}
+							]
+						},
+						"description": "Lấy danh sách phòng trống kèm theo thông tin hạng phòng."
+					},
+					"response": []
+				},
+				{
+					"name": "Chi tiết một phòng",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/rooms/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"rooms",
+								"1"
+							]
+						},
+						"description": "Lấy thông tin chi tiết của một mã phòng vật lý."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách các hạng phòng (Loại phòng)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/room-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"room-types"
+							]
+						},
+						"description": "Lấy danh sách các loại phòng (Standard, Deluxe, Suite,...) kèm giá cả."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách chương trình khuyến mãi",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/promotions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"promotions"
+							]
+						},
+						"description": "Lấy danh sách các mã giảm giá đang hoạt động."
+					},
+					"response": []
+				},
+				{
+					"name": "Chi tiết mã khuyến mãi theo Code",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/promotions/SUMMER26",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"promotions",
+								"SUMMER26"
+							]
+						},
+						"description": "Kiểm tra thông tin chi tiết và phần trăm giảm giá của code khuyến mãi."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách đánh giá theo hạng phòng",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/reviews/room-type/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"reviews",
+								"room-type",
+								"1"
+							]
+						},
+						"description": "Lấy các bình luận đánh giá sao của khách hàng cũ về hạng phòng này."
+					},
+					"response": []
+				},
+				{
+					"name": "Xem thông tin Profile khách hàng đăng nhập",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Bearer token nhận được sau khi login"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/profile?user_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Lấy thông tin cá nhân của khách hàng (yêu cầu Token)."
+					},
+					"response": []
+				},
+				{
+					"name": "Lịch sử đặt phòng của tôi (My Bookings)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/my-bookings?user_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"my-bookings"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"description": "Mã khách hàng cần lấy lịch sử"
+								}
+							]
+						},
+						"description": "Danh sách các đơn đặt phòng của chính khách hàng đó."
+					},
+					"response": []
+				},
+				{
+					"name": "Chi tiết một đơn đặt phòng của tôi",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/bookings/my-bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"my-bookings",
+								"1"
+							]
+						},
+						"description": "Chi tiết đơn phòng kèm theo chi tiết phòng vật lý được phân bổ."
+					},
+					"response": []
+				},
+				{
+					"name": "Thông tin tài khoản đang đăng nhập (Auth Me)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						},
+						"description": "Health check tài khoản đang đăng nhập."
+					},
+					"response": []
+				},
+				{
+					"name": "Bảng điều khiển quản trị (Admin Dashboard Stats)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/dashboard",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"dashboard"
+							]
+						},
+						"description": "Thống kê doanh thu, tổng số đặt phòng, tỷ lệ lấp đầy phục vụ Dashboard (Yêu cầu tài khoản Admin/Staff)."
+					},
+					"response": []
+				},
+				{
+					"name": "Thống kê doanh thu biểu đồ (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/dashboard/revenue",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"dashboard",
+								"revenue"
+							]
+						},
+						"description": "Lấy dữ liệu doanh thu phân bổ theo các tháng để vẽ biểu đồ."
+					},
+					"response": []
+				},
+				{
+					"name": "Thống kê đặt phòng theo Hạng phòng (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/dashboard/room-type-stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"dashboard",
+								"room-type-stats"
+							]
+						},
+						"description": "Thống kê số lượt đặt phòng chia theo từng hạng phòng."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách toàn bộ đặt đơn phòng (Admin/Lễ tân)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/bookings?status=Cho_Xac_Nhan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"bookings"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Cho_Xac_Nhan",
+									"description": "Lọc theo trạng thái đơn"
+								}
+							]
+						},
+						"description": "Xem tất cả các đơn đặt phòng của khách sạn."
+					},
+					"response": []
+				},
+				{
+					"name": "Thống kê số lượng đơn phòng theo trạng thái (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/bookings/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"bookings",
+								"stats"
+							]
+						},
+						"description": "Thống kê tổng số đơn chờ duyệt, đã thanh toán, đã hủy,..."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách chờ làm thủ tục Check-in hôm nay",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/checkinout/checkin/pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"checkinout",
+								"checkin",
+								"pending"
+							]
+						},
+						"description": "Danh sách các đơn đặt phòng có ngày check-in là hôm nay nhưng chưa nhận phòng."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách chờ làm thủ tục Check-out hôm nay",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/checkinout/checkout/pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"checkinout",
+								"checkout",
+								"pending"
+							]
+						},
+						"description": "Danh sách các khách đang lưu trú dự kiến trả phòng hôm nay."
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách khách hàng đăng ký thành viên (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"customers"
+							]
+						},
+						"description": "Danh sách tất cả các tài khoản khách hàng trên hệ thống."
+					},
+					"response": []
+				},
+				{
+					"name": "Sổ cái danh sách hóa đơn thanh toán (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"payments"
+							]
+						},
+						"description": "Danh sách tất cả các hóa đơn đã được lập (vnpay/tiền mặt)."
+					},
+					"response": []
+				},
+				{
+					"name": "Báo cáo doanh thu tài chính (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/reports/revenue?year=2026",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"reports",
+								"revenue"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2026"
+								}
+							]
+						},
+						"description": "Báo cáo doanh thu chi tiết kèm biểu đồ."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. POST/PUT/DELETE Requests (Thao tác dữ liệu)",
+			"item": [
+				{
+					"name": "Đăng nhập tài khoản (Login)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"khach1@gmail.com\",\n    \"mat_khau\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Đăng nhập và lấy User Info. Phục vụ xác thực token."
+					},
+					"response": []
+				},
+				{
+					"name": "Đăng ký thành viên mới (Register)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ho_ten\": \"Nguyễn Văn Khách\",\n    \"email\": \"nguyenvan_test@gmail.com\",\n    \"mat_khau\": \"12345678\",\n    \"so_dien_thoai\": \"0987654321\",\n    \"cccd\": \"079090123456\",\n    \"ngay_sinh\": \"2000-01-01\",\n    \"dia_chi\": \"123 Nguyễn Huệ, TP.HCM\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Đăng ký tài khoản thành viên mới và kích hoạt gửi email chào mừng tự động."
+					},
+					"response": []
+				},
+				{
+					"name": "Yêu cầu quên mật khẩu (Forgot Password)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"nguyenvan_test@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/auth/forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						},
+						"description": "Cấp lại mật khẩu tạm thời ngẫu nhiên và tự động gửi email cho người dùng."
+					},
+					"response": []
+				},
+				{
+					"name": "Kiểm tra trùng Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"khach1@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/auth/check-email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"check-email"
+							]
+						},
+						"description": "Kiểm tra xem email đã tồn tại hay chưa để validate thời gian thực ở Frontend."
+					},
+					"response": []
+				},
+				{
+					"name": "Kiểm tra trùng số điện thoại",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"so_dien_thoai\": \"0912345678\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/auth/check-phone",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"check-phone"
+							]
+						},
+						"description": "Kiểm tra trùng số điện thoại thực tế."
+					},
+					"response": []
+				},
+				{
+					"name": "Kiểm tra phòng trống (Check Availability)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loai_phong_id\": 1,\n    \"ngay_checkin\": \"2026-06-25\",\n    \"ngay_checkout\": \"2026-06-26\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/rooms/check-availability",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"rooms",
+								"check-availability"
+							]
+						},
+						"description": "Kiểm tra hạng phòng có phòng vật lý nào còn trống trong khoảng thời gian đã chọn hay không."
+					},
+					"response": []
+				},
+				{
+					"name": "Đặt nhanh không tài khoản (Quick Guest Booking)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"guest_name\": \"Nguyễn Khách Vãng Lai\",\n    \"guest_email\": \"nguyenvan_test@gmail.com\",\n    \"guest_phone\": \"0966778899\",\n    \"guest_cccd\": \"079090998877\",\n    \"ngay_checkin\": \"2026-06-25\",\n    \"ngay_checkout\": \"2026-06-26\",\n    \"loai_phong_id\": 1,\n    \"so_nguoi_lon\": 2,\n    \"so_tre_em\": 0,\n    \"tong_tien_phong\": 1200000,\n    \"thanh_tien_cuoi\": 1200000,\n    \"gia_ap_dung\": 1200000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/bookings/quick",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"bookings",
+								"quick"
+							]
+						},
+						"description": "Đặt phòng nhanh, hệ thống tự động khởi tạo User ảo và phân bổ phòng trống."
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy link thanh toán VNPay Sandbox",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"booking_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/payments/vnpay-url",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"payments",
+								"vnpay-url"
+							]
+						},
+						"description": "Sinh ra đường dẫn chuyển hướng sang cổng thanh toán trực tuyến VNPay Sandbox."
+					},
+					"response": []
+				},
+				{
+					"name": "Xác thực giao dịch VNPay (Verify Payment)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vnp_TxnRef\": \"1\",\n    \"vnp_Amount\": \"120000000\",\n    \"vnp_ResponseCode\": \"00\",\n    \"vnp_TransactionNo\": \"12345678\",\n    \"vnp_SecureHash\": \"chuỗi_hash_vnpay_gửi_về\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/payments/vnpay-verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"payments",
+								"vnpay-verify"
+							]
+						},
+						"description": "Xác nhận chữ ký bảo mật từ VNPay callback gửi về, cập nhật trạng thái đơn thành Da_Thanh_Toan và gửi mail hóa đơn."
+					},
+					"response": []
+				},
+				{
+					"name": "Áp dụng mã giảm giá (Validate Promo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"SUMMER26\",\n    \"amount\": 2500000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/promotions/validate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"promotions",
+								"validate"
+							]
+						},
+						"description": "Kiểm tra tính hợp lệ của mã giảm giá và tính toán số tiền được khấu trừ."
+					},
+					"response": []
+				},
+				{
+					"name": "Đổi mật khẩu tài khoản (Change Password)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"current_password\": \"12345678\",\n    \"new_password\": \"newpass123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/profile/change-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								"change-password"
+							]
+						},
+						"description": "Khách hàng đổi mật khẩu từ trang Cá nhân."
+					},
+					"response": []
+				},
+				{
+					"name": "Cập nhật Profile cá nhân",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ho_ten\": \"Nguyễn Văn Khách Sửa Tên\",\n    \"so_dien_thoai\": \"0987654321\",\n    \"dia_chi\": \"456 Lê Lợi, Quận 1, TP.HCM\",\n    \"cccd\": \"079090123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/profile?user_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Cập nhật thông tin liên hệ của khách hàng đăng nhập."
+					},
+					"response": []
+				},
+				{
+					"name": "Đặt phòng trực tuyến (Create Booking)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"khach_hang_id\": 1,\n    \"ngay_checkin\": \"2026-06-25\",\n    \"ngay_checkout\": \"2026-06-26\",\n    \"loai_phong_id\": 1,\n    \"so_nguoi_lon\": 2,\n    \"so_tre_em\": 0,\n    \"tong_tien_phong\": 1200000,\n    \"thanh_tien_cuoi\": 1200000,\n    \"ghi_chu_dac_biet\": \"Yêu cầu phòng hướng biển\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						},
+						"description": "Tạo đơn đặt phòng mới ở trạng thái Chờ xác nhận."
+					},
+					"response": []
+				},
+				{
+					"name": "Khách hàng hủy đơn đặt phòng",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ly_do\": \"Có việc bận đột xuất\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings/my-bookings/1/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings",
+								"my-bookings",
+								"1",
+								"cancel"
+							]
+						},
+						"description": "Khách tự hủy đặt phòng trực tuyến trong giới hạn giờ cho phép."
+					},
+					"response": []
+				},
+				{
+					"name": "Gửi đánh giá trải nghiệm (Submit Review)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nguoi_dung_id\": 1,\n    \"loai_phong_id\": 1,\n    \"so_sao\": 5,\n    \"binh_luan\": \"Phòng rất sạch đẹp, view biển tuyệt vời!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/reviews",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reviews"
+							]
+						},
+						"description": "Khách hàng gửi bình luận, đánh giá sao cho hạng phòng."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin thêm phòng vật lý mới",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"so_phong\": \"105\",\n    \"loai_phong_id\": 1,\n    \"mo_ta\": \"Phòng Standard lầu 1\",\n    \"trang_thai_hien_tai\": 0\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/rooms",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"rooms"
+							]
+						},
+						"description": "Thêm một phòng vật lý mới vào sơ đồ phòng."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin sửa thông tin phòng vật lý",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"so_phong\": \"105\",\n    \"loai_phong_id\": 1,\n    \"mo_ta\": \"Phòng Standard lầu 1 sửa đổi\",\n    \"trang_thai_hien_tai\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/rooms/105",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"rooms",
+								"105"
+							]
+						},
+						"description": "Cập nhật mô tả hoặc đổi trạng thái phòng vật lý."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin xóa phòng vật lý",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/rooms/105",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"rooms",
+								"105"
+							]
+						},
+						"description": "Xóa phòng vật lý khỏi danh sách khai thác."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin lập đơn đặt hộ khách (Booking Offline)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"khach_hang_id\": 1,\n    \"ngay_checkin\": \"2026-06-25\",\n    \"ngay_checkout\": \"2026-06-26\",\n    \"so_nguoi_lon\": 2,\n    \"so_tre_em\": 0,\n    \"room_id\": 1,\n    \"thanh_tien_cuoi\": 1200000,\n    \"ghi_chu_dac_biet\": \"Đặt trực tiếp tại quầy\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"bookings"
+							]
+						},
+						"description": "Lập đơn đặt phòng hộ khách hàng từ bảng quản lý của nhân viên lễ tân."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin cập nhật trạng thái đơn đặt (Update Status)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trang_thai_don\": \"Dang_O\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/bookings/1/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"bookings",
+								"1",
+								"status"
+							]
+						},
+						"description": "Cập nhật trạng thái đơn hàng (Dang_O, Da_Tra_Phong, Da_Huy) và tự động đồng bộ trạng thái phòng tương ứng."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin đổi phòng vật lý cho khách (Change Room)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"chi_tiet_dat_phong_id\": 1,\n    \"phong_moi_id\": 2,\n    \"ly_do\": \"Khách muốn đổi sang phòng yên tĩnh hơn\",\n    \"phu_thu\": 0\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/bookings/1/change-room",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"bookings",
+								"1",
+								"change-room"
+							]
+						},
+						"description": "Lễ tân thực hiện đổi phòng vật lý đang ở sang một phòng trống khác."
+					},
+					"response": []
+				},
+				{
+					"name": "Làm thủ tục nhận phòng (Process Check-in)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/checkinout/checkin/1/process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"checkinout",
+								"checkin",
+								"1",
+								"process"
+							]
+						},
+						"description": "Thực hiện check-in cho đơn đặt phòng số 1."
+					},
+					"response": []
+				},
+				{
+					"name": "Làm thủ tục trả phòng (Process Check-out)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/checkinout/checkout/1/process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"checkinout",
+								"checkout",
+								"1",
+								"process"
+							]
+						},
+						"description": "Thực hiện check-out giải phóng phòng vật lý."
+					},
+					"response": []
+				},
+				{
+					"name": "Lập hóa đơn thanh toán tại quầy (Process Payment)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"booking_id\": 1,\n    \"payment_method\": \"Tien_Mat\",\n    \"amount\": 1200000,\n    \"note\": \"Khách thanh toán tiền mặt trực tiếp tại quầy\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/payments/process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"payments",
+								"process"
+							]
+						},
+						"description": "Ghi nhận thanh toán tiền mặt/quẹt thẻ của khách hàng tại quầy lễ tân."
+					},
+					"response": []
+				},
+				{
+					"name": "Đăng xuất tài khoản (Logout)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/v1/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Hủy bỏ token xác thực đăng nhập hiện tại."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "nhập_token_vào_đây_sau_khi_đăng_nhập",
+			"type": "string"
+		}
+	]
+}
